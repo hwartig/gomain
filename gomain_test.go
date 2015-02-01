@@ -6,11 +6,15 @@ import (
 	"testing"
 )
 
+func Noop(in []string) []string {
+	return in
+}
+
 func checkProcess(t *testing.T, input string, expected string) bool {
 	outputWriter := new(bytes.Buffer)
 	inputReader := strings.NewReader(input)
 
-	Process(inputReader, outputWriter)
+	Process(inputReader, outputWriter, Noop)
 
 	if actual := outputWriter.String(); actual != expected {
 		t.Errorf("expected '%s' got '%s'", expected, actual)
